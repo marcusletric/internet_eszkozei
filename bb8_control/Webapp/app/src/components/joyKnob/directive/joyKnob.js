@@ -23,6 +23,7 @@ bb8_control.directive("joyKnob", function () {
           templateUrl: 'src/components/joyKnob/templates/joyKnob.html',
           link: function (scope, element, attrs) {
             var knob = $($(element).find('.joyKnob'));
+            var knobRadius = Math.ceil(knob.width() / 2);
             var dragging = false;
             var elemOffset = {x:$(element).offset().left, y: $(element).offset().top};
             var body = $('body');
@@ -41,11 +42,13 @@ bb8_control.directive("joyKnob", function () {
               dragging = true;
             });
 
-            centerKnob();
+            knob.css({top: radius - knobRadius + 'px'});
+            knob.css({left: radius - knobRadius + 'px'});
 
             function centerKnob(){
-              knob.css({top: radius - Math.ceil(knob.width() / 2) + 'px'});
-              knob.css({left: radius - Math.ceil(knob.width() / 2) + 'px'});
+              knob.css({top: radius - knobRadius + 'px'});
+              knob.css({left: radius - knobRadius + 'px'});
+              scope.knobMoved(radius, radius);
             }
 
             function handleMouseMove(event) {
@@ -54,12 +57,13 @@ bb8_control.directive("joyKnob", function () {
 
                 knob.css({top: knobPosition.y  + 'px'});
                 knob.css({left: knobPosition.x  + 'px'});
+                scope.knobMoved(knobPosition.x + knobRadius, knobPosition.y + knobRadius);
               }
             }
 
             function calculatePosition(mouseEvent) {
               var mousePos = {x: mouseEvent.clientX, y: mouseEvent.clientY};
-              var center = {x: (elemDimensions.x / 2) + elemOffset.x, y: (elemDimensions.y / 2) + elemOffset.y};
+              var center = {x: radius + elemOffset.x, y: radius + elemOffset.y};
               var distance = Math.sqrt(Math.pow(center.x - mousePos.x,2) + Math.pow(center.y - mousePos.y,2));
 
               var deltaY = mousePos.y - center.y;
@@ -72,9 +76,9 @@ bb8_control.directive("joyKnob", function () {
               }
 
               if(distance > radius){
-                return {x: radius + (radius * Math.cos(angle)) - Math.ceil(knob.width() / 2), y: radius + (radius * Math.sin(angle)) - Math.ceil(knob.width() / 2)};
+                return {x: radius + (radius * Math.cos(angle)) -knobRadius, y: radius + (radius * Math.sin(angle)) - knobRadius};
               } else {
-                return {x: (mousePos.x - elemOffset.x - Math.ceil(knob.width() / 2)), y: (mousePos.y - elemOffset.y - Math.ceil(knob.height() / 2))}
+                return {x: (mousePos.x - elemOffset.x - knobRadius), y: (mousePos.y - elemOffset.y - knobRadius)}
               }
             }
           }

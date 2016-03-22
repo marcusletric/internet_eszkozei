@@ -16,6 +16,9 @@
       border-radius: 50%;
       background-color: #000000;
     }
+    canvas {
+      display: none;
+    }
   }
   &.color {
     background: radial-gradient(circle at 0 0, #ffffff 20%,#ffff00 25%,#00ff00 34%,#00ffff 42%,#0000ff 52%,#ff00ff 61%,#ff0000 74%,#000000 80%);

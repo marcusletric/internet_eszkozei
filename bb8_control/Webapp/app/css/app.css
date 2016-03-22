@@ -30,6 +30,8 @@
       height: 70px;
       border-radius: 50%;
       background-color: #000000; }
+    [joy-knob] .joyKnobBoundary canvas {
+      display: none; }
   [joy-knob].color {
     background: radial-gradient(circle at 0 0, #ffffff 20%, #ffff00 25%, #00ff00 34%, #00ffff 42%, #0000ff 52%, #ff00ff 61%, #ff0000 74%, #000000 80%); }
     [joy-knob].color .joyKnobBoundary {
@@ -92,6 +94,8 @@ body {
           height: 70px;
           border-radius: 50%;
           background-color: #000000; }
+        .app_canvas .main_screen [joy-knob] .joyKnobBoundary canvas {
+          display: none; }
       .app_canvas .main_screen [joy-knob].color {
         background: radial-gradient(circle at 0 0, #ffffff 20%, #ffff00 25%, #00ff00 34%, #00ffff 42%, #0000ff 52%, #ff00ff 61%, #ff0000 74%, #000000 80%); }
         .app_canvas .main_screen [joy-knob].color .joyKnobBoundary {
