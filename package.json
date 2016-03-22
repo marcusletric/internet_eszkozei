@@ -1,0 +1,44 @@
+{
+  "name": "bb8_control",
+  "private": true,
+  "version": "0.0.0",
+  "description": "bb8_control Client app",
+  "repository": "https://github.com/marcusletric/RFT_hospital_net",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp" : "*",
+    "gulp-sass" : "*",
+    "gulp-concat" : "*",
+    "gulp-uglify" : "*",
+    "gulp-rename" : "*",
+    "gulp-file-include" : "*",
+    "gulp-cache": "^0.2.10",
+    "gulp-connect": "^2.2.0",
+    "gulp-filter": "^2.0.2",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-minify-css": "^1.2.0",
+    "gulp-ng-annotate": "^1.0.0",
+    "gulp-useref": "^3.0.0",
+    "gulp-util": "^3.0.6",
+    "gulp-watch": "^4.2.4",
+    "open": "0.0.5",
+    "lazypipe": "^0.2.4",
+    "run-sequence" : "*",
+    "rimraf": "^2.4.0",
+    "wiredep": "^2.2.2",
+    "bower": "*"
+  },
+  "dependencies":{
+    "http" : "*",
+    "url" : "*",
+    "path" : "*",
+    "fs" : "*",
+    "querystring" : "*",
+    "noble" : "*",
+    "sphero" : "*"
+  },
+  "scripts": {
+    "install": "bower install",
+    "start": "node bb8_server.js"
+  }
+}

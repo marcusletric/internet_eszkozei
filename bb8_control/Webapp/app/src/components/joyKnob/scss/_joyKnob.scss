@@ -1,0 +1,26 @@
+[joy-knob] {
+  display: inline-block;
+  border-radius: 50%;
+  .joyKnobBoundary {
+    display: block;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    border: 2px solid #000000;
+    .joyKnob {
+      position: absolute;
+      display: block;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #000000;
+    }
+  }
+  &.color {
+    background: radial-gradient(circle at 0 0, #ffffff 20%,#ffff00 25%,#00ff00 34%,#00ffff 42%,#0000ff 52%,#ff00ff 61%,#ff0000 74%,#000000 80%);
+    .joyKnobBoundary {
+      background: linear-gradient(45deg, rgba(0,0,0,0) 0%,rgba(0,0,0,0) 50%,rgba(0,0,0,.75) 75%,rgba(0,0,0,1) 85%);
+    }
+  }
+}
