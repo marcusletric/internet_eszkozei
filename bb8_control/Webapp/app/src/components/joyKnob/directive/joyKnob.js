@@ -22,8 +22,8 @@ bb8_control.directive("joyKnob", function () {
           restrict: 'A',
           templateUrl: 'src/components/joyKnob/templates/joyKnob.html',
           link: function (scope, element, attrs) {
-            var knob = $($(element).find('.joyKnob'));
-            var knobRadius = Math.ceil(knob.width() / 2);
+            scope.knob = $($(element).find('.joyKnob'));
+            var knobRadius = Math.ceil(scope.knob.width() / 2);
             var dragging = false;
             var elemOffset = {x:$(element).offset().left, y: $(element).offset().top};
             var body = $('body');
@@ -38,16 +38,16 @@ bb8_control.directive("joyKnob", function () {
               }
             });
 
-            knob.on('mousedown', function () {
+            scope.knob.on('mousedown', function () {
               dragging = true;
             });
 
-            knob.css({top: radius - knobRadius + 'px'});
-            knob.css({left: radius - knobRadius + 'px'});
+            scope.knob.css({top: radius - knobRadius + 'px'});
+            scope.knob.css({left: radius - knobRadius + 'px'});
 
             function centerKnob(){
-              knob.css({top: radius - knobRadius + 'px'});
-              knob.css({left: radius - knobRadius + 'px'});
+              scope.knob.css({top: radius - knobRadius + 'px'});
+              scope.knob.css({left: radius - knobRadius + 'px'});
               scope.knobMoved(radius, radius);
             }
 
@@ -55,8 +55,8 @@ bb8_control.directive("joyKnob", function () {
               if (dragging) {
                 var knobPosition = calculatePosition(event);
 
-                knob.css({top: knobPosition.y  + 'px'});
-                knob.css({left: knobPosition.x  + 'px'});
+                scope.knob.css({top: knobPosition.y  + 'px'});
+                scope.knob.css({left: knobPosition.x  + 'px'});
                 scope.knobMoved(knobPosition.x + knobRadius, knobPosition.y + knobRadius);
               }
             }

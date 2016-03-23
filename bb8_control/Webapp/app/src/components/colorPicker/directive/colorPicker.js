@@ -44,25 +44,21 @@ bb8_control
                     '</foreignObject>' +
                     '</svg>';
 
-                  var DOMURL = $window.URL || $window.webkitURL || $window;
 
                   var img = new Image();
-                  var svg = new Blob([domString], {type: 'image/svg+xml;charset=utf-8'});
-                  var url = DOMURL.createObjectURL(svg);
 
                   img.crossOrigin = 'anonymous';
                   img.onload = function () {
                     ctx.drawImage(img, 0, 0);
-                    DOMURL.revokeObjectURL(url);
                   };
 
-                  img.src = url;
+                  img.src = 'data:image/svg+xml,' + domString;
                 });
               };
 
               scope.getColorAt = function(x,y){
                 var imgd = ctx.getImageData(x, y, 1, 1);
-                return [imgd[0], imgd[1], imgd[2]];
+                return [imgd.data[0], imgd.data[1], imgd.data[2]];
               }
             }
         }
