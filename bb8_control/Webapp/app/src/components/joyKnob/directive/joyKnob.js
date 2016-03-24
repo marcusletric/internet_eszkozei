@@ -75,8 +75,8 @@ bb8_control.directive("joyKnob", function () {
                 angle = angle + Math.PI;
               }
 
-              if(distance > radius){
-                return {x: radius + (radius * Math.cos(angle)) -knobRadius, y: radius + (radius * Math.sin(angle)) - knobRadius};
+              if(distance > radius-1){
+                return {x: radius + (radius * Math.cos(angle)*.9) -knobRadius, y: radius-1 + (radius * Math.sin(angle)*.9) - knobRadius};
               } else {
                 return {x: (mousePos.x - elemOffset.x - knobRadius), y: (mousePos.y - elemOffset.y - knobRadius)}
               }

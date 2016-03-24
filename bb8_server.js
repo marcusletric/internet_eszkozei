@@ -1,11 +1,12 @@
 var http = require('http'),
 url = require("url"),
 path = require("path"),
-fs = require("fs");
-
-var qs = require('querystring');
-var sphero = require("sphero"),
-    bb8 = sphero("c7320d8466b2");
+fs = require("fs"),
+qs = require('querystring'),
+sphero = require("sphero");
+var bb8 = null;
+var bb8conn = false;
+var update = true;
 
 //Lets define a port we want to listen to
 const PORT=8080;
@@ -14,12 +15,28 @@ const PORT=8080;
 
 //Create a server
 
+function connect(){
+	console.log('Connecting');
+	bb8 = sphero("c7320d8466b2");
+	bb8.connect(function() {
+		bb8conn = true;
+		bb8.color('green');
+		console.log('Connection alive');
+	});
+}
+
+//connect();
+				
 var server = http.createServer(handleRequest);
 
 	server.listen(PORT, function(){
 		//Callback triggered when server is successfully listening. Hurray!
 		console.log("Server listening on: http://localhost:%s", PORT);
 	});
+	
+	function commandSent(){
+		update = true;
+	}
 
 	function handleRequest(request, response){
 
@@ -36,19 +53,25 @@ var server = http.createServer(handleRequest);
         });
 
         request.on('end', function () {
+			
             var post = qs.parse(body);
-            console.log(post);
-            if(post['connect'] && !bb8conn){
-                bb8.connect(function() {
-                bb8conn = true;
-                bb8.color('green');
-              });
-            } else if(bb8conn) {
+            //console.log(post);
+            if(typeof post['connect'] !='undefined'){
+				connect();
+            } else if (typeof post['disconnect'] !='undefined'){
+				bb8.disconnect(function() {
+					console.log('Disconnected');
+					bb8conn = false;
+				});
+			} else if (bb8conn && update) {
               for(key in post){
-                bb8[key](post[key]);
+                bb8[key](JSON.parse(post[key]),commandSent);
+				update = false;
               }
             }
         });
+		
+		response.end();
     } else if (request.method == 'GET') {
        var uri = url.parse(request.url).pathname
          , filename = path.join(process.cwd() + "/bb8_control/Webapp/app/", uri);
