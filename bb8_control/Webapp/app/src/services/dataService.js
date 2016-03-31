@@ -14,7 +14,10 @@ bb8_control.service('dataService',function($http){
         return {
             method: 'POST',
             url: url,
-            data: $.param(data)
+            data: data,
+            headers : {
+              'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'
+            }
         }
     };
 

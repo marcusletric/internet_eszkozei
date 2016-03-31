@@ -22,33 +22,33 @@ bb8_control.directive("joyKnob", function () {
           restrict: 'A',
           templateUrl: 'src/components/joyKnob/templates/joyKnob.html',
           link: function (scope, element, attrs) {
+            var elemDimensions = {x: $(element).width(), y: $(element).height()};
             scope.knob = $($(element).find('.joyKnob'));
+            scope.radius = elemDimensions.x / 2;
             var knobRadius = Math.ceil(scope.knob.width() / 2);
             var dragging = false;
             var elemOffset = {x:$(element).offset().left, y: $(element).offset().top};
             var body = $('body');
-            var elemDimensions = {x: $(element).width(), y: $(element).height()};
-            var radius = elemDimensions.x / 2;
 
-            body.on('mousemove', handleMouseMove);
-            body.on('mouseup', function () {
+            body.on('mousemove touchmove', handleMouseMove);
+            body.on('mouseup touchend', function () {
               dragging = false;
               if(attrs.elastic){
                 centerKnob();
               }
             });
 
-            scope.knob.on('mousedown', function () {
+            scope.knob.on('mousedown touchstart', function () {
               dragging = true;
             });
 
-            scope.knob.css({top: radius - knobRadius + 'px'});
-            scope.knob.css({left: radius - knobRadius + 'px'});
+            scope.knob.css({top: scope.radius - knobRadius + 'px'});
+            scope.knob.css({left: scope.radius - knobRadius + 'px'});
 
             function centerKnob(){
-              scope.knob.css({top: radius - knobRadius + 'px'});
-              scope.knob.css({left: radius - knobRadius + 'px'});
-              scope.knobMoved(radius, radius);
+              scope.knob.css({top: scope.radius - knobRadius + 'px'});
+              scope.knob.css({left: scope.radius - knobRadius + 'px'});
+              scope.knobMoved(scope.radius, scope.radius);
             }
 
             function handleMouseMove(event) {
@@ -62,8 +62,8 @@ bb8_control.directive("joyKnob", function () {
             }
 
             function calculatePosition(mouseEvent) {
-              var mousePos = {x: mouseEvent.clientX, y: mouseEvent.clientY};
-              var center = {x: radius + elemOffset.x, y: radius + elemOffset.y};
+              var mousePos = {x: mouseEvent.clientX || mouseEvent.originalEvent.touches[0].clientX, y: mouseEvent.clientY || mouseEvent.originalEvent.touches[0].clientY};
+              var center = {x: scope.radius + elemOffset.x, y: scope.radius + elemOffset.y};
               var distance = Math.sqrt(Math.pow(center.x - mousePos.x,2) + Math.pow(center.y - mousePos.y,2));
 
               var deltaY = mousePos.y - center.y;
@@ -75,8 +75,8 @@ bb8_control.directive("joyKnob", function () {
                 angle = angle + Math.PI;
               }
 
-              if(distance > radius-1){
-                return {x: radius + (radius * Math.cos(angle)*.9) -knobRadius, y: radius-1 + (radius * Math.sin(angle)*.9) - knobRadius};
+              if(distance > scope.radius-2){
+                return {x: scope.radius + (scope.radius * Math.cos(angle)*.9) -knobRadius, y: scope.radius-1 + (scope.radius * Math.sin(angle)*.9) - knobRadius};
               } else {
                 return {x: (mousePos.x - elemOffset.x - knobRadius), y: (mousePos.y - elemOffset.y - knobRadius)}
               }

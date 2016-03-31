@@ -19,21 +19,21 @@ function connect(){
 	console.log('Connecting');
 	bb8 = sphero("c7320d8466b2");
 	bb8.connect(function() {
+		console.log('Connection alive');
 		bb8conn = true;
 		bb8.color('green');
-		console.log('Connection alive');
 	});
 }
 
-//connect();
-				
+connect();
+
 var server = http.createServer(handleRequest);
 
 	server.listen(PORT, function(){
 		//Callback triggered when server is successfully listening. Hurray!
 		console.log("Server listening on: http://localhost:%s", PORT);
 	});
-	
+
 	function commandSent(){
 		update = true;
 	}
@@ -53,24 +53,26 @@ var server = http.createServer(handleRequest);
         });
 
         request.on('end', function () {
-			
-            var post = qs.parse(body);
-            //console.log(post);
+
+            var post = JSON.parse(body);
             if(typeof post['connect'] !='undefined'){
-				connect();
+              connect();
             } else if (typeof post['disconnect'] !='undefined'){
-				bb8.disconnect(function() {
-					console.log('Disconnected');
-					bb8conn = false;
-				});
-			} else if (bb8conn && update) {
+              bb8.disconnect(function() {
+                console.log('Disconnected');
+                bb8conn = false;
+				      });
+            } else if (bb8conn && update) {
               for(key in post){
-                bb8[key](JSON.parse(post[key]),commandSent);
-				update = false;
+                var args = [];
+                args = args.concat(post[key]);
+                args = args.concat([commandSent]);
+                bb8[key].apply(bb8,args);
+                update = false;
               }
             }
         });
-		
+
 		response.end();
     } else if (request.method == 'GET') {
        var uri = url.parse(request.url).pathname
