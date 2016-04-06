@@ -7,6 +7,8 @@ sphero = require("sphero");
 var bb8 = null;
 var bb8conn = false;
 var update = true;
+var setHeading = null;
+var lastHeading = null;
 
 //Lets define a port we want to listen to
 const PORT=8080;
@@ -62,6 +64,26 @@ var server = http.createServer(handleRequest);
                 console.log('Disconnected');
                 bb8conn = false;
 				      });
+            } else if (bb8conn && update && typeof post['roll'] !='undefined') {
+                var args = [];
+                if(setHeading) {
+                  clearTimeout(setHeading);
+                }
+                args = args.concat(post['roll']);
+                args = args.concat([commandSent]);
+                bb8['roll'].apply(bb8,args);
+                /*if(post['roll'][0] < 1) {
+                  setHeading = setTimeout(function () {
+                    bb8.roll(1, 0, 2, function () {
+                      bb8.setHeading(0, function () {
+                        bb8.roll(0, 0, 1);
+                      });
+                    })
+                  }, 1000);
+                } else {
+                  lastHeading = post['roll'][1];
+                }*/
+                update = false;
             } else if (bb8conn && update) {
               for(key in post){
                 var args = [];
