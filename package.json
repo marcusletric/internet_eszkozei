@@ -32,7 +32,6 @@
     "http" : "*",
     "url" : "*",
     "path" : "*",
-    "fs" : "*",
     "querystring" : "*",
     "noble" : "*",
     "sphero" : "*"

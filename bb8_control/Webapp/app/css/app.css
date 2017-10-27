@@ -18,8 +18,8 @@
   border-radius: 50%; }
   [joy-knob] .joyKnobBoundary {
     display: block;
-    width: 200px;
-    height: 200px;
+    width: 400px;
+    height: 400px;
     border-radius: 50%;
     position: relative;
     border: 2px solid #000000; }
@@ -33,9 +33,11 @@
     [joy-knob] .joyKnobBoundary canvas {
       display: none; }
   [joy-knob].color {
-    background: radial-gradient(circle at 0 0, #ffffff 20%, #ffff00 25%, #00ff00 34%, #00ffff 42%, #0000ff 52%, #ff00ff 61%, #ff0000 74%, #000000 80%); }
+    background: radial-gradient(circle at 0 0, #ffffff 20%, #00ff00 28%, #ffff00 40%, #ff0000 48%, #ff00ff 52%, #0000ff 60%, #00ffff 68%, #000000 76%); }
     [joy-knob].color .joyKnobBoundary {
-      background: linear-gradient(45deg, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.75) 75%, black 85%); }
+      background: linear-gradient(45deg, white 15%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.75) 75%, black 85%); }
+  [joy-knob] input {
+    position: absolute; }
 
 * {
   font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; }
@@ -88,8 +90,8 @@ body {
       border-radius: 50%; }
       .app_canvas .main_screen [joy-knob] .joyKnobBoundary {
         display: block;
-        width: 200px;
-        height: 200px;
+        width: 400px;
+        height: 400px;
         border-radius: 50%;
         position: relative;
         border: 2px solid #000000; }
@@ -103,6 +105,8 @@ body {
         .app_canvas .main_screen [joy-knob] .joyKnobBoundary canvas {
           display: none; }
       .app_canvas .main_screen [joy-knob].color {
-        background: radial-gradient(circle at 0 0, #ffffff 20%, #ffff00 25%, #00ff00 34%, #00ffff 42%, #0000ff 52%, #ff00ff 61%, #ff0000 74%, #000000 80%); }
+        background: radial-gradient(circle at 0 0, #ffffff 20%, #00ff00 28%, #ffff00 40%, #ff0000 48%, #ff00ff 52%, #0000ff 60%, #00ffff 68%, #000000 76%); }
         .app_canvas .main_screen [joy-knob].color .joyKnobBoundary {
-          background: linear-gradient(45deg, transparent 0%, transparent 50%, rgba(0, 0, 0, 0.75) 75%, black 85%); }
+          background: linear-gradient(45deg, white 15%, rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.75) 75%, black 85%); }
+      .app_canvas .main_screen [joy-knob] input {
+        position: absolute; }

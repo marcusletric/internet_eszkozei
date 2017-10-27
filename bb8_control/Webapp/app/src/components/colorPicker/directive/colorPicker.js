@@ -32,7 +32,7 @@ bb8_control
 
               scope.renderDom = function(element){
                 $http.get('css/app.css').then(function(response){
-                  var domString = '<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">' +
+                  var domString = '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400">' +
                     '<foreignObject width="100%" height="100%">' +
                     '<div xmlns="http://www.w3.org/1999/xhtml">' +
                     '<style>' +

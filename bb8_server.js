@@ -19,7 +19,7 @@ const PORT=8080;
 
 function connect(){
 	console.log('Connecting');
-	bb8 = sphero("c7320d8466b2");
+	bb8 = sphero("f6115d5e33ea4eb8b0c0aa9c30e31269");
 	bb8.connect(function() {
 		console.log('Connection alive');
 		bb8conn = true;
@@ -27,7 +27,7 @@ function connect(){
 	});
 }
 
-connect();
+//connect();
 
 var server = http.createServer(handleRequest);
 

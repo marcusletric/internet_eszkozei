@@ -1,4 +1,4 @@
-bb8_control.controller("robotDrive", function ($scope,$element,dataService,$timeout) {
+bb8_control.controller("robotDrive", function ($scope,$element,dataService,microphoneService) {
   $scope.knobMoved = function(x,y){
     x = x - $scope.radius;
     y = y - $scope.radius;
@@ -14,4 +14,12 @@ bb8_control.controller("robotDrive", function ($scope,$element,dataService,$time
     console.log((angle/Math.PI)*180);
     dataService.postCommand('roll', [power,(angle/Math.PI)*180]);
   };
+
+  microphoneService.setCallback(function() {
+    if ($scope.audioVisualisation) {
+      $scope.knobMoved(90 + (microphoneService.gainValue/255*200), 90+(microphoneService.gainValue/255*200));
+      $scope.$digest();
+    }
+  });
+
 });
