@@ -34,7 +34,8 @@
     "path" : "*",
     "querystring" : "*",
     "noble" : "*",
-    "sphero" : "*"
+    "sphero" : "*",
+    "nodejs-websocket" : "*"
   },
   "scripts": {
     "install": "bower install",

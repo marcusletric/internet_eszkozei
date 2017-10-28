@@ -1,4 +1,4 @@
-bb8_control.controller("colorPicker", function ($scope,$element,dataService,microphoneService,$timeout) {
+bb8_control.controller("colorPicker", function ($scope, $element, webSocketService, audioService, $timeout) {
   $timeout(function(){
     $scope.renderDom($element[0]);
   },200);
@@ -6,12 +6,12 @@ bb8_control.controller("colorPicker", function ($scope,$element,dataService,micr
   $scope.knobMoved = function(x,y){
     var colorData = $scope.getColorAt(x,y);
     $($scope.knob).css('background-color','rgba(' + colorData[0] + ',' + colorData[1] + ',' + colorData[2]  + ',1)');
-    dataService.postCommand('setRgbLed', [{red: colorData[0], green: colorData[1], blue: colorData[2]}]);
+    webSocketService.postCommand('setRgbLed', [{red: colorData[0], green: colorData[1], blue: colorData[2]}]);
   };
 
-  microphoneService.setCallback(function() {
+  audioService.setCallback(function() {
     if ($scope.audioVisualisation) {
-      $scope.knobMoved(90 + (microphoneService.gainValue/255*140), 90+(microphoneService.gainValue/255*140));
+      $scope.knobMoved(90 + (audioService.gainValue/255*140), 90+(audioService.gainValue/255*140));
     }
   });
 });

@@ -1,14 +1,9 @@
-bb8_control.controller("HomeCtrl", function ($scope, dataService, microphoneService) {
-  /*microphoneService.setCallback(function () {
-    $scope.volume = microphoneService.gainValue;
-    $scope.$digest();
-  });*/
-
+bb8_control.controller("HomeCtrl", function ($scope, webSocketService) {
   $scope.connect = function(){
-    dataService.postCommand('connect', "");
+    webSocketService.postCommand('connect', "");
   };
 
   $scope.disconnect = function(){
-    dataService.postCommand('disconnect', "");
+    webSocketService.postCommand('disconnect', "");
   };
 });

@@ -1,4 +1,4 @@
-bb8_control.controller("robotDrive", function ($scope,$element,dataService,microphoneService) {
+bb8_control.controller("robotDrive", function ($scope, $element, webSocketService, audioService) {
   $scope.knobMoved = function(x,y){
     x = x - $scope.radius;
     y = y - $scope.radius;
@@ -12,12 +12,12 @@ bb8_control.controller("robotDrive", function ($scope,$element,dataService,micro
      angle = angle + (Math.PI*2);
     }
     console.log((angle/Math.PI)*180);
-    dataService.postCommand('roll', [power,(angle/Math.PI)*180]);
+    webSocketService.postCommand('roll', [power,(angle/Math.PI)*180]);
   };
 
-  microphoneService.setCallback(function() {
+  audioService.setCallback(function() {
     if ($scope.audioVisualisation) {
-      $scope.knobMoved(90 + (microphoneService.gainValue/255*200), 90+(microphoneService.gainValue/255*200));
+      $scope.knobMoved(90 + (audioService.gainValue/255*200), 90+(audioService.gainValue/255*200));
       $scope.$digest();
     }
   });

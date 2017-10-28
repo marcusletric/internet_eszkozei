@@ -1,4 +1,4 @@
-bb8_control.service('microphoneService', function() {
+bb8_control.service('audioService', function() {
   var callback = [];
   var service = {
       setCallback: function (ref) {
@@ -20,13 +20,40 @@ bb8_control.service('microphoneService', function() {
     script_processor_fft_node = null,
     analyserNode = null;
 
+  function gotDevices(deviceInfos) {
+    // Handles being called several times to update labels. Preserve values.
+    for (var i = 0; i !== deviceInfos.length; ++i) {
+      var deviceInfo = deviceInfos[i];
+
+      console.log(deviceInfo);
+
+      /*option.value = deviceInfo.deviceId;
+      if (deviceInfo.kind === 'audioinput') {
+        option.text = deviceInfo.label ||
+          'microphone ' + (audioInputSelect.length + 1);
+        audioInputSelect.appendChild(option);
+      } else if (deviceInfo.kind === 'audiooutput') {
+        option.text = deviceInfo.label || 'speaker ' +
+          (audioOutputSelect.length + 1);
+        audioOutputSelect.appendChild(option);
+      } else if (deviceInfo.kind === 'videoinput') {
+        option.text = deviceInfo.label || 'camera ' + (videoSelect.length + 1);
+        videoSelect.appendChild(option);
+      } else {
+        console.log('Some other kind of source/device: ', deviceInfo);
+      }*/
+    }
+  }
+
+  navigator.mediaDevices.enumerateDevices().then(gotDevices).catch(function(e){console.error(e)});
+
   if (!navigator.getUserMedia)
     navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||
       navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
   if (navigator.getUserMedia){
 
-    navigator.getUserMedia({audio:true},
+    navigator.getUserMedia({audio:{deviceId: "1386fa70f965237b3fb2d05fd4dbdca87ec9fb8676e9856b700e031a354cb8e3"}},
       function(stream) {
         start_microphone(stream);
       },
